@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="comment">
-      <el-table :data="commentList" width="100%">
-        <el-table-column prop="name" label="UserName" :width="width"></el-table-column>
+      <el-table :data="commentList" width="100%" height="93vh" border stripe>
+        <el-table-column prop="thumbnail" label="Icon" width="48"></el-table-column>
+        <el-table-column prop="username" label="UserName" width="100"></el-table-column>
         <el-table-column prop="comment" label="Comments"></el-table-column>
         <el-table-column prop="platform" label="Platform"></el-table-column>
       </el-table>
@@ -26,34 +27,14 @@
     data() {
       return {
         commentList: [
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
-          {"name": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"name": "bbbbb", "comment": "hugahuga", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
+          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
         ],
-        width: 100,
         platforms: [
           {"value": "YouTube", "label": "YouTube"},
         ],
@@ -65,7 +46,6 @@
 
 <style scoped>
   #comment {
-    margin-bottom: 40px;
   }
   #chat {
     position: fixed;
