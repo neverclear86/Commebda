@@ -1,40 +1,55 @@
 <template>
   <div id="app">
     <div id="comment">
-      <el-table :data="commentList" width="100%" height="93vh" border stripe>
-        <el-table-column prop="thumbnail" label="Icon" width="48"></el-table-column>
-        <el-table-column prop="username" label="UserName" width="100"></el-table-column>
+      <el-table :data="commentList"
+                width="100%" height="calc(100vh - 48px)" border stripe
+                header-cell-class-name="header">
+        <el-table-column type="index" label="#" width="30px"></el-table-column>
+        <el-table-column prop="thumbnail" label="Icon" width="48">
+          <template slot-scope="scope">
+            <img class="icon" :src="scope.row.thumbnail">
+          </template>
+        </el-table-column>
+        <el-table-column prop="username" label="UserName" width="100px"></el-table-column>
         <el-table-column prop="comment" label="Comments"></el-table-column>
-        <el-table-column prop="platform" label="Platform"></el-table-column>
+        <el-table-column prop="platform" label="Platform" width="120px"></el-table-column>
       </el-table>
     </div>
-    <div id="chat">
-      <el-input placeholder="Comment" id="input"></el-input>
-      <el-select v-model="selectPlatform" placeholder="Select Platform" id="platform">
+    <el-input placeholder="Comment" class="input">
+      <el-select v-model="selectPlatform" placeholder="Platform" slot="append" class="platform">
         <el-option v-for="item in platforms"
-          :key="item.value" :lavel="item.label" :value="item.value">
+                   :key="item.value" :lavel="item.label" :value="item.value">
         </el-option>
       </el-select>
-    </div>
+    </el-input>
   </div>
 </template>
 
 <script>
   import ElSelectDropdown from 'element-ui/packages/select/src/select-dropdown'
+  import path from 'path'
+  // import { app } from 'electron'
+  import DataStore from 'nedb'
+
+  let p = 'path'
+  let db = new DataStore({
+    filename: path.join(p, 'comment.db'),
+    autoload: true,
+  })
+
+  let comments = []
+  new Promise((resolve, reject) => db.find({}, (err, docs) => resolve(docs)))
+    .then((c) => {
+      comments = c
+      console.log(comments)
+    })
+
   export default {
     name: 'CommentViewer',
     components: {ElSelectDropdown},
     data() {
       return {
-        commentList: [
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-          {"thumbnail": "https://youtube.com/" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-        ],
+        commentList: comments,
         platforms: [
           {"value": "YouTube", "label": "YouTube"},
         ],
@@ -44,22 +59,31 @@
   }
 </script>
 
-<style scoped>
-  #comment {
-  }
-  #chat {
+<style lang="scss">
+  .input {
     position: fixed;
     bottom: 0;
     width: 100%;
+
+    .platform {
+      width: 120px;
+    }
+
   }
-  
-  .el-input {
-    width: 80%;
+
+  .header {
+    padding: 0;
   }
-  
-  .el-select {
+
+  .el-table th {
+    padding: 0;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
     position: absolute;
-    right: 0;
-    width: 20%;
+    top: 0;
+    left: 0;
   }
 </style>

@@ -28,6 +28,9 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  // Plugins
+  require('../lib/plugin_loader')
 }
 
 app.on('ready', createWindow)
