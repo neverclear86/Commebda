@@ -27,22 +27,17 @@
 
 <script>
   import ElSelectDropdown from 'element-ui/packages/select/src/select-dropdown'
-  import path from 'path'
-  // import { app } from 'electron'
-  import DataStore from 'nedb'
-
-  let p = 'path'
-  let db = new DataStore({
-    filename: path.join(p, 'comment.db'),
-    autoload: true,
-  })
+  import { ipcRenderer } from 'electron'
 
   let comments = []
-  new Promise((resolve, reject) => db.find({}, (err, docs) => resolve(docs)))
-    .then((c) => {
-      comments = c
-      console.log(comments)
-    })
+
+  ipcRenderer.on('receiveComments', (event, arg) => {
+    comments = arg
+  })
+
+  setInterval(() => {
+    ipcRenderer.send('fetchComments')
+  }, 1000)
 
   export default {
     name: 'CommentViewer',

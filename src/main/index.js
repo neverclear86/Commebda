@@ -30,7 +30,10 @@ function createWindow () {
   })
 
   // Plugins
-  require('../lib/plugin_loader')
+  require('./lib/plugin_loader')
+
+  // ipc
+  require('./ipc/fetch_comments')
 }
 
 app.on('ready', createWindow)

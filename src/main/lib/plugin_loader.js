@@ -7,7 +7,7 @@ let db = new DataStore({
   autoload: true,
 })
 
-db.insert([
+[
   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "First", "comment": "h", "platform": "YouTube"},
   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "ho", "platform": "YouTube"},
   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hog", "platform": "YouTube"},
@@ -29,4 +29,4 @@ db.insert([
   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafugafoo", "platform": "YouTube"},
   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "Last", "comment": "hogehogefugafugafoob", "platform": "YouTube"},
 
-])
+].forEach(db.insert)
