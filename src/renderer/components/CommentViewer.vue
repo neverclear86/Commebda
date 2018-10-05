@@ -29,28 +29,35 @@
   import ElSelectDropdown from 'element-ui/packages/select/src/select-dropdown'
   import { ipcRenderer } from 'electron'
 
-  let comments = []
-
-  ipcRenderer.on('receiveComments', (event, arg) => {
-    comments = arg
-  })
-
-  setInterval(() => {
-    ipcRenderer.send('fetchComments')
-  }, 1000)
-
   export default {
     name: 'CommentViewer',
     components: {ElSelectDropdown},
     data() {
       return {
-        commentList: comments,
+        commentList: [],
         platforms: [
           {"value": "YouTube", "label": "YouTube"},
         ],
         selectPlatform: '',
       }
-    }
+    },
+    created: function() {
+      // ipcRenderer.on('receiveComments', (event, arg) => {
+      //   this.commentList = arg
+      // })
+      //
+      // ipcRenderer.on('addComment', (event, arg) => {
+      //   this.commentList.push(arg)
+      // })
+
+      // ipcRenderer.send('fetchComments')
+
+      ipcRenderer.on('getFunc', (event, arg) => {
+        console.log(arg)
+      })
+
+      ipcRenderer.send('getFunc')
+    },
   }
 </script>
 
