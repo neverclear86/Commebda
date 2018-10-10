@@ -28,6 +28,7 @@
 <script>
   import ElSelectDropdown from 'element-ui/packages/select/src/select-dropdown'
   import { ipcRenderer } from 'electron'
+  // import plugin from '../../main/lib/plugin_loader'
 
   export default {
     name: 'CommentViewer',
@@ -42,21 +43,7 @@
       }
     },
     created: function() {
-      // ipcRenderer.on('receiveComments', (event, arg) => {
-      //   this.commentList = arg
-      // })
-      //
-      // ipcRenderer.on('addComment', (event, arg) => {
-      //   this.commentList.push(arg)
-      // })
-
-      // ipcRenderer.send('fetchComments')
-
-      ipcRenderer.on('getFunc', (event, arg) => {
-        console.log(arg)
-      })
-
-      ipcRenderer.send('getFunc')
+      // plugin(this)
     },
   }
 </script>
@@ -75,6 +62,10 @@
 
   .header {
     padding: 0;
+  }
+
+  .el-table {
+    position: inherit!important;
   }
 
   .el-table th {

@@ -1,31 +1,35 @@
+import fs from 'fs'
 import path from 'path'
-import { app } from 'electron'
-import DataStore from 'nedb'
+import {app} from 'electron'
+
+
+const dir = path.join(app.getPath('userData'), 'plugin')
+
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir)
+}
+
+// プラグインDir内読む
+// package.jsonから情報を取る
 //
-// let db = new DataStore({
-//   filename: path.join(app.getPath('userData'), 'comment.db'),
-//   autoload: true,
-// });
+fs.readdirSync(dir)
+  .forEach(v => {
+    const p = path.resolve(v)
+    let mod = require(p)
+    console.log(mod)
+    // let packageFile = path.join(v, 'package.json')
+    // const info = require(packageFile)
+    // console.log(info)
+  })
+
 //
-// [
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "First", "comment": "h", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "ho", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hog", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hoge", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogeh", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogeho", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehog", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehoge", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogef", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefu", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefug", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefuga", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugaf", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafu", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafug", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafuga", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafugaf", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafugafo", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "aaaaa", "comment": "hogehogefugafugafoo", "platform": "YouTube"},
-//   {"thumbnail": "https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no" , "username": "Last", "comment": "hogehogefugafugafoob", "platform": "YouTube"},
-// ].forEach(v => db.insert(v))
+// module.exports = (vue) => {
+//   setInterval(() => {
+//     vue.commentList.push({
+//       "thumbnail":"https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no",
+//       "username":"aaaaa",
+//       "comment":"hogehoge",
+//       "platform":"YouTube",
+//     })
+//   }, 1000)
+// }

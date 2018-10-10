@@ -14,14 +14,3 @@ import path from 'path'
 //     event.sender.send('receiveComments', docs)
 //   })
 // })
-
-ipcMain.on('getFunc', event => {
-  event.sender.send('getFunc', {
-    func: function() {
-      console.log('function!')
-    },
-    str: "arr",
-    arr: [1, 2],
-    num: 10,
-  })
-})
