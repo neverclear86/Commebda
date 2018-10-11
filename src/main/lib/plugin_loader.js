@@ -14,22 +14,8 @@ if (!fs.existsSync(dir)) {
 //
 fs.readdirSync(dir)
   .forEach(v => {
-    const p = path.resolve(v)
-    let mod = require(p)
-    console.log(mod)
-    // let packageFile = path.join(v, 'package.json')
-    // const info = require(packageFile)
-    // console.log(info)
+    let data = fs.readFileSync(path.join(dir, v, 'index.js')).toString()
+    exports[v] = eval(data)
   })
 
-//
-// module.exports = (vue) => {
-//   setInterval(() => {
-//     vue.commentList.push({
-//       "thumbnail":"https://yt3.ggpht.com/a-/AN66SAxyRxpe-l5OgqQwH8QantkTCNs0GrP0NgoQBA=s288-mo-c-c0xffffffff-rj-k-no",
-//       "username":"aaaaa",
-//       "comment":"hogehoge",
-//       "platform":"YouTube",
-//     })
-//   }, 1000)
-// }
+console.log(exports)
